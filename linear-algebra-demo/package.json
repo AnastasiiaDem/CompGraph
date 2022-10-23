@@ -1,0 +1,59 @@
+{
+  "name": "linear-algebra-demo",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://rodionchachura.github.io/linear-algebra",
+  "dependencies": {
+    "gh-pages": "^2.0.1",
+    "linear-algebra": "file:../library",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.0",
+    "react-sizeme": "^2.6.12",
+    "styled-components": "^4.4.1",
+    "three": "^0.104.0",
+    "three-orbitcontrols": "^2.102.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.16.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "semi": false
+  }
+}
