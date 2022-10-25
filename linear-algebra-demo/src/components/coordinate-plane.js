@@ -1,42 +1,46 @@
 import React from 'react'
-
 import Grid from './grid'
-import Container from './example-container'
-import InfoContainer from './info-container'
+import styled from 'styled-components'
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+`
 
 class Main extends React.Component {
+  step = 20
+
   constructor(props) {
     super(props)
     this.state = {
       project: undefined
     }
   }
+
   render() {
+    this.step = Number(this.props.step)
     const { project } = this.state
-    const { renderInformation, renderGridContent, cells = 10 } = this.props
+    const { renderGridContent } = this.props
     const Content = () => {
       if (project && renderGridContent) {
         return renderGridContent({ project })
       }
       return null
     }
-    const Information = () => {
-      if (renderInformation) {
-        return renderInformation()
-      }
-      return null
-    }
+
     return (
       <Container>
         <Grid
-          cells={cells}
           updateProject={project => this.setState({ project })}
+          step={this.step}
         >
           <Content />
         </Grid>
-        <InfoContainer>
-          <Information />
-        </InfoContainer>
       </Container>
     )
   }

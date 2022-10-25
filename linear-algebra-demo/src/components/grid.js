@@ -2,33 +2,26 @@ import React from 'react'
 import styled from 'styled-components'
 import { withSize } from 'react-sizeme'
 import { Vector } from 'linear-algebra/vector'
-
-import GridLine from './grid-line'
+import GridLine from './grid-axis'
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 `
 
 const MARGIN = 10
 
 const getSide = ({ width, height }) => Math.min(width, height) - MARGIN * 2
 
-const getStepLen = ({ width, height }, cells) => {
-  const side = getSide({ width, height })
-  const middle = side / 2
-  return middle / cells
-}
-
 class Grid extends React.Component {
   render() {
-    const { size, children, cells } = this.props
+    const { size, children } = this.props
     const side = getSide(size)
     const middle = side / 2
-    const stepLen = middle / cells
+    const stepLen = this.getStepLen()
     const steps = new Array(Math.floor(middle / stepLen))
       .fill(0)
       .reduce(
@@ -76,10 +69,13 @@ class Grid extends React.Component {
     )
   }
 
-  updateProject = (size, cells) => {
-    const step = getStepLen(size, cells)
+  getStepLen() {
+    return this.props.step
+  }
+
+  updateProject = size => {
+    const step = this.getStepLen()
     this.props.updateProject(vector => {
-      // we don't have transformation method in vector class yet, so:
       const scaled = vector.scaleBy(step)
       const withNegatedY = new Vector(
         scaled.components[0],
@@ -92,8 +88,8 @@ class Grid extends React.Component {
 
   componentWillReceiveProps({ size, cells }) {
     if (this.props.updateProject) {
-      const newStepLen = getStepLen(size, cells)
-      const oldStepLen = getStepLen(this.props.size, cells)
+      const newStepLen = this.getStepLen(size, cells)
+      const oldStepLen = this.getStepLen(this.props.size, cells)
       if (newStepLen !== oldStepLen) {
         this.updateProject(size, cells)
       }
@@ -102,7 +98,7 @@ class Grid extends React.Component {
 
   componentDidMount() {
     if (this.props.updateProject) {
-      this.updateProject(this.props.size, this.props.cells)
+      this.updateProject(this.props.size)
     }
   }
 }
