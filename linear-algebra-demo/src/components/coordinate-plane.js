@@ -12,7 +12,7 @@ const Container = styled.div`
   position: relative;
 `
 
-class Main extends React.Component {
+class CoordinatePlane extends React.Component {
   step = 20
 
   constructor(props) {
@@ -25,7 +25,7 @@ class Main extends React.Component {
   render() {
     this.step = Number(this.props.step)
     const { project } = this.state
-    const { renderGridContent } = this.props
+    const renderGridContent = undefined
     const Content = () => {
       if (project && renderGridContent) {
         return renderGridContent({ project })
@@ -46,4 +46,4 @@ class Main extends React.Component {
   }
 }
 
-export default Main
+export default CoordinatePlane

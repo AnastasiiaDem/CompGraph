@@ -16,5 +16,7 @@
     "url": "https://github.com/RodionChachura/linear-algebra/issues"
   },
   "homepage": "https://github.com/RodionChachura/linear-algebra#readme",
-  "dependencies": {}
+  "dependencies": {
+    "react-motion": "^0.5.2"
+  }
 }

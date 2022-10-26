@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Form from './form'
-import GridExample from './coordinate-plane'
+import CoordinatePlane from './coordinate-plane'
 
 const Container = styled.div`
   width: 100%;
@@ -31,7 +31,7 @@ class Main extends React.Component {
     return (
       <Container>
         <Form updateData={this.updateData} />
-        <GridExample step={this.state.step} />
+        <CoordinatePlane step={this.state.step} />
       </Container>
     )
   }

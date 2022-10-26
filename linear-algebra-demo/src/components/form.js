@@ -19,7 +19,7 @@ export default class Form extends React.Component {
   render() {
     return (
       <form
-        style={{ display: 'flex', 'flex-direction': 'row' }}
+        style={{ display: 'flex', flexDirection: 'row' }}
         onChange={e => {
           this.props.updateData(this.step)
           e.preventDefault()
