@@ -2,7 +2,7 @@ export const THEME = {
   color: {
     background: '#FFF',
     mainText: 'rgba(57,57,66,0.61)',
-    secondaryText: '#888e91',
+    secondaryText: '#bfc0c0',
     green: '#2ecc71',
     blue: '#3498db',
     purple: '#9b59b6',

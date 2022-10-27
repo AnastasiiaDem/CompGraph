@@ -5,9 +5,9 @@ import CoordinatePlane from './coordinate-plane'
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 580px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 40px;
   flex-direction: row;
@@ -18,7 +18,7 @@ class Main extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      step: 20
+      step: 10
     }
   }
 
@@ -30,8 +30,8 @@ class Main extends React.Component {
   render() {
     return (
       <Container>
-        <Form updateData={this.updateData} />
         <CoordinatePlane step={this.state.step} />
+        <Form updateData={this.updateData} />
       </Container>
     )
   }

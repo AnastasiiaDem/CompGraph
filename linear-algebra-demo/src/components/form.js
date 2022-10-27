@@ -5,7 +5,7 @@ export default class Form extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { step: 20 }
+    this.state = { step: 10 }
 
     this.handleChange = this.handleChange.bind(this)
   }
@@ -18,22 +18,32 @@ export default class Form extends React.Component {
 
   render() {
     return (
-      <form
-        style={{ display: 'flex', flexDirection: 'row' }}
-        onChange={e => {
-          this.props.updateData(this.step)
-          e.preventDefault()
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+          width: '300px',
+          justifyContent: 'space-around',
+          alignItems: 'center'
         }}
       >
-        <label style={{ width: 60 }}>px/cm :</label>
-        <input
-          type="number"
-          value={this.state.step}
-          onChange={this.handleChange}
-          style={{ width: 50 }}
-          min={10}
-        />
-      </form>
+        <form
+          onChange={e => {
+            this.props.updateData(this.step)
+            e.preventDefault()
+          }}
+        >
+          <label style={{ width: 60 }}>px/cm:&nbsp;</label>
+          <input
+            type="number"
+            value={this.state.step}
+            onChange={this.handleChange}
+            style={{ width: 50 }}
+            min={10}
+          />
+        </form>
+      </div>
     )
   }
 }

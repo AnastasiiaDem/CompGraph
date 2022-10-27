@@ -1,19 +1,20 @@
 import React from 'react'
 import Grid from './grid'
 import styled from 'styled-components'
+import Canvas from './canva'
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 500px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-end;
   flex-direction: row;
   position: relative;
 `
 
 class CoordinatePlane extends React.Component {
-  step = 20
+  step = 10
 
   constructor(props) {
     super(props)
@@ -23,15 +24,7 @@ class CoordinatePlane extends React.Component {
   }
 
   render() {
-    this.step = Number(this.props.step)
-    const { project } = this.state
-    const renderGridContent = undefined
-    const Content = () => {
-      if (project && renderGridContent) {
-        return renderGridContent({ project })
-      }
-      return null
-    }
+    this.step = this.props.step
 
     return (
       <Container>
@@ -39,7 +32,10 @@ class CoordinatePlane extends React.Component {
           updateProject={project => this.setState({ project })}
           step={this.step}
         >
-          <Content />
+          <Canvas
+            updateProject={project => this.setState({ project })}
+            step={this.step}
+          />
         </Grid>
       </Container>
     )
