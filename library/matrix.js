@@ -47,14 +47,14 @@ class Matrix {
       return this.rows[0][0] * this.rows[1][1] - this.rows[0][1] * this.rows[1][0]
     }
 
-    const parts = this.rows[0].map((coef, index) => {
+    const coordinates = this.rows[0].map((coef, index) => {
       const matrixRows = this.rows.slice(1).map(row => [ ...row.slice(0, index), ...row.slice(index + 1)])
       const matrix = new Matrix(...matrixRows)
       const result = coef * matrix.determinant()
       return index % 2 === 0 ? result : -result
     })
 
-    return sum(parts)
+    return sum(coordinates)
   }
   toDimension(dimension) {
     const zeros = new Array(dimension).fill(0)

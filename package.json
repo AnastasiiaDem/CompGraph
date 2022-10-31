@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "accordion-form": "^1.0.0",
+    "transformation-matrix": "^2.14.0"
+  }
+}

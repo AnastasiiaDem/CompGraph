@@ -13,7 +13,8 @@
     "react-sizeme": "^2.6.12",
     "styled-components": "^4.4.1",
     "three": "^0.104.0",
-    "three-orbitcontrols": "^2.102.1"
+    "three-orbitcontrols": "^2.102.1",
+    "transformation-matrix": "^2.14.0"
   },
   "scripts": {
     "start": "react-scripts start",

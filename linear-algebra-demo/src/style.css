@@ -1,0 +1,127 @@
+html {
+    overflow: auto;
+}
+
+html::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(199, 194, 194, 0.64);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+html::-webkit-scrollbar {
+    width: 5px;
+    background-color: #F5F5F5;
+}
+
+html::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 32%);
+    background-color: #f5f5f5;
+}
+
+form {
+    margin-top: 25px;
+}
+
+input {
+    width: 50px;
+}
+
+.block {
+    margin: 20px 10px 0 0;
+    padding: 5px;
+    box-shadow: 0 5px 20px 0 rgb(175 175 175 / 18%);
+}
+
+.form-input {
+    margin: 0 10px 10px 0;
+    width: 90px;
+}
+
+.form-input p {
+    width: 40%;
+    display: inline-block;
+}
+
+.true, .false, .submit {
+    display: inline-block;
+    transition-duration: 0.4s;
+    background-color: rgb(69 236 140 / 22%);
+    border: 0;
+    border-radius: 5px;
+    text-decoration: none;
+    color: rgba(7, 91, 43, 0.48);
+    margin: 5px;
+}
+
+.true:hover {
+    background-color: rgba(7, 91, 43, 0.22);
+    color: white;
+}
+
+.false {
+    background-color: rgba(236, 69, 69, 0.22);
+    color: rgba(91, 7, 7, 0.48);
+}
+
+.false:hover {
+    background-color: rgba(91, 7, 7, 0.22);
+    color: white;
+}
+
+.submit {
+    background-color: rgba(236, 222, 69, 0.22);
+    color: rgba(91, 84, 7, 0.48);
+    margin: 0 10px 10px 0;
+}
+
+.submit:hover {
+    background-color: rgba(91, 84, 7, 0.22);
+    color: white;
+}
+
+.scrollbar {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 500px;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding-left: 50px;
+    z-index: 1010;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(199, 194, 194, 0.64);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.scrollbar::-webkit-scrollbar {
+    width: 5px;
+    background-color: #F5F5F5;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 32%);
+    background-color: #f5f5f5;
+}
+
+.mark {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.line {
+    font-size: 9px;
+    font-weight: 900;
+}
+
+
+.arrow {
+    font-size: 14px;
+    font-weight: 900;
+}
