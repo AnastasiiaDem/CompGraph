@@ -72,7 +72,8 @@ class Canvas extends React.Component {
 
   render() {
     this.step = 10
-    this.radius = Number(this.props.state.radius)
+    this.radius =
+      Number(this.props.state.radius) * (Number(this.props.state.step) / 10)
     if (
       JSON.stringify(this.length) !== JSON.stringify(this.props.state.length)
     ) {

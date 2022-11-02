@@ -311,18 +311,8 @@ class Transformation extends React.Component {
           },
           {
             id: 'Z',
-            x:
-              this.props.state.coordinates.find(p => p.id === 'A').x +
-              this.defC.find(p => p.id === 'Z').x -
-              10 -
-              this.props.state.step -
-              this.props.state.affine.Ox,
-            y:
-              this.props.state.coordinates.find(p => p.id === 'A').y +
-              this.defC.find(p => p.id === 'Z').y -
-              10 -
-              this.props.state.step -
-              this.props.state.affine.Oy
+            x: this.defC.find(p => p.id === 'Z').x + this.props.state.affine.Ox,
+            y: this.defC.find(p => p.id === 'Z').y + this.props.state.affine.Oy
           },
           {
             id: 'Y',
@@ -440,11 +430,11 @@ class Transformation extends React.Component {
             { id: 'Y2', x: 610, y: 10 }
           ]
         }
-      } else if (id === 'dotY' || id === 'dotX') {
+      } else if (side === 'dotY' || side === 'dotX') {
         this.setState({
-          id: Number(value)
+          side: Number(value)
         })
-        this.props.state[id] = Number(value)
+        this.props.state[side] = Number(value)
       } else {
         this.setState({
           side: Number(value)
@@ -551,7 +541,6 @@ class Transformation extends React.Component {
   }
 
   render() {
-    debugger
     if (!!this.transformMatrix.length && this.calculate) {
       for (let key in this.props.state.coordinates) {
         if (this.setAxis) {
@@ -575,9 +564,9 @@ class Transformation extends React.Component {
       this.props.state.coordinates = this.res
       if (this.setAxis === false) {
         this.props.state.coordinates.push(
-          { id: 'Y', x: 0, y: 0 },
-          { id: 'Y1', x: 0, y: 480 },
-          { id: 'Y2', x: 610, y: 0 }
+          { id: 'Y', x: 10, y: 10 },
+          { id: 'Y1', x: 10, y: 480 },
+          { id: 'Y2', x: 610, y: 10 }
         )
       }
     }

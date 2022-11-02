@@ -1,8 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Vector } from 'linear-algebra/vector'
-import Line from './line'
-import { THEME as theme } from '../constants/theme'
 
 const Container = styled.div`
   width: 610px;
@@ -106,9 +103,9 @@ class Grid extends React.Component {
         ctx.beginPath()
         ctx.moveTo(x + 10, 10)
         ctx.lineTo(
-          this.props.state.coordinates.find(p => p.id === 'Y1').x +
-            x -
-            this.props.state.affine.Ox,
+          this.props.state.setAffine
+            ? this.props.state.coordinates.find(p => p.id === 'Y1').x + x
+            : this.props.state.coordinates.find(p => p.id === 'Y1').x + x,
           this.props.state.coordinates.find(p => p.id === 'Y1').y
         )
         if (x === this.props.state.affine.Ox) {
@@ -133,11 +130,8 @@ class Grid extends React.Component {
         ctx.beginPath()
         ctx.moveTo(10, 10 + y)
         ctx.lineTo(
-          this.props.state.coordinates.find(p => p.id === 'Y2').x +
-            this.props.state.affine.Ox,
-          this.props.state.coordinates.find(p => p.id === 'Y2').y +
-            y -
-            this.props.state.affine.Oy
+          this.props.state.coordinates.find(p => p.id === 'Y2').x,
+          this.props.state.coordinates.find(p => p.id === 'Y2').y + y
         )
         if (y === this.props.state.affine.Oy) {
           ctx.strokeStyle = 'rgba(57,57,66,0.61)'
@@ -351,7 +345,8 @@ class Grid extends React.Component {
 
   setPoints() {
     this.step = 10
-    this.radius = Number(this.props.state.radius)
+    this.radius =
+      Number(this.props.state.radius) * (Number(this.props.state.step) / 10)
     // if (JSON.stringify(this.length) !== JSON.stringify(this.props.state.length)) {
     //   this.update = true;
     // }
@@ -549,16 +544,10 @@ class Grid extends React.Component {
       {
         id: 'Z',
         x:
-          this.props.state.coordinates.find(p => p.id === 'A').x +
-          this.props.state.coordinates.find(p => p.id === 'Z').x -
-          10 -
-          this.props.state.step -
+          this.props.state.coordinates.find(p => p.id === 'Z').x +
           this.props.state.affine.Ox,
         y:
-          this.props.state.coordinates.find(p => p.id === 'A').y +
-          this.props.state.coordinates.find(p => p.id === 'Z').y -
-          10 -
-          this.props.state.step -
+          this.props.state.coordinates.find(p => p.id === 'Z').y +
           this.props.state.affine.Oy
       },
       {
