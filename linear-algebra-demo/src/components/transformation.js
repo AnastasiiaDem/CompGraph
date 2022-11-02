@@ -116,6 +116,18 @@ class Transformation extends React.Component {
       }
       this.calculate = true
       this.transformMatrix = this.setAffineMatrix()
+    } else if (id === 'resetProjective') {
+      this.setState(event)
+      for (let key in event) {
+        this.props.state[key] = event[key]
+      }
+      for (let key in event.affine) {
+        this.props.state.projective[key] = event.projective[key]
+      }
+      for (let key in event.coordinates) {
+        this.props.state.coordinates[key] = event.coordinates[key]
+      }
+      this.calculate = false
     } else {
       const side = event.target.id
       const value = event.target.value
