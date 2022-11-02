@@ -2,12 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Line = styled.line`
-  stroke-width: ${p => (p.main ? '2px' : p.layout ? '1.5px' : '0.3px')};
+  stroke-width: ${p => (p.main ? '3px' : p.layout ? '1.5px' : '0.1px')};
   stroke: ${p =>
     p.main
       ? p.theme.color.mainText
       : p.layout
-      ? p.theme.color.green
+      ? '#09227a8c'
       : p.theme.color.secondaryText};
 `
 

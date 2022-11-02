@@ -20,7 +20,7 @@ html::-webkit-scrollbar-thumb {
 }
 
 form {
-    margin-top: 25px;
+    margin-top: 10px;
 }
 
 input {
@@ -30,7 +30,7 @@ input {
 .block {
     margin: 20px 10px 0 0;
     padding: 5px;
-    box-shadow: 0 5px 20px 0 rgb(175 175 175 / 18%);
+    box-shadow: 0 10px 20px -5px rgb(175 175 175 / 30%);
 }
 
 .form-input {
@@ -46,12 +46,13 @@ input {
 .true, .false, .submit {
     display: inline-block;
     transition-duration: 0.4s;
-    background-color: rgb(69 236 140 / 22%);
+    background-color: rgb(69 236 140 / 15%);
     border: 0;
     border-radius: 5px;
     text-decoration: none;
     color: rgba(7, 91, 43, 0.48);
-    margin: 5px;
+    margin: 0 10px 10px 0;
+    height: 18px;
 }
 
 .true:hover {
@@ -60,8 +61,11 @@ input {
 }
 
 .false {
-    background-color: rgba(236, 69, 69, 0.22);
+    background-color: rgba(236, 69, 69, 0.15);
     color: rgba(91, 7, 7, 0.48);
+    width: 200px;
+    transform: translate(50%, -5%);
+    margin-top: 20px;
 }
 
 .false:hover {
@@ -70,7 +74,7 @@ input {
 }
 
 .submit {
-    background-color: rgba(236, 222, 69, 0.22);
+    background-color: rgba(236, 222, 69, 0.15);
     color: rgba(91, 84, 7, 0.48);
     margin: 0 10px 10px 0;
 }
@@ -84,12 +88,13 @@ input {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    height: 500px;
+    height: 530px;
     width: 500px;
     justify-content: flex-start;
     align-items: stretch;
     padding-left: 50px;
     z-index: 1010;
+    padding-bottom: 30px;
 }
 
 .scrollbar::-webkit-scrollbar-track {
@@ -124,4 +129,11 @@ input {
 .arrow {
     font-size: 14px;
     font-weight: 900;
+}
+
+.pxForm {
+    align-self: center;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
 }

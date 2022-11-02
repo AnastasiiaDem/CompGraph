@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Canvas from './canva'
 
 const Container = styled.div`
-  width: 630px;
+  width: 610px;
   height: 700px;
   display: flex;
   justify-content: flex-start;

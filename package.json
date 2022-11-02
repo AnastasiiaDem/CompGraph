@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "accordion-form": "^1.0.0",
+    "node": "^19.0.0",
+    "prop-types": "^15.8.1",
     "transformation-matrix": "^2.14.0"
   }
 }
