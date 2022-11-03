@@ -94,21 +94,75 @@ class Grid extends React.Component {
       }
 
       let i = 1
+      let j = 0
+      // if (this.props.state.setAffine) {
+      //   // vertical
+      //   for (let x = this.props.state.affine.Ox; x < this.width; x += this.props.state.step * this.props.state.affine.Xx) {
+      //     ctx.beginPath()
+      //     ctx.moveTo(x + 10, 10 + ((x === this.props.state.affine.Ox) ? this.props.state.affine.Oy : (j * 10) + this.props.state.affine.Oy))
+      //     ctx.lineTo(this.props.state.coordinates.find(p => p.id === 'Y1').x + x - this.props.state.affine.Ox,
+      //       this.props.state.coordinates.find(p => p.id === 'Y1').y
+      //     )
+      //     if (x === this.props.state.affine.Ox) {
+      //       ctx.strokeStyle = 'rgba(57,57,66,0.61)'
+      //       ctx.lineWidth = 2
+      //       ctx.stroke()
+      //     } else {
+      //       ctx.strokeStyle = 'rgba(65,64,64,0.35)'
+      //       ctx.lineWidth = 0.5
+      //       ctx.stroke()
+      //     }
+      //     i++;
+      //     j = j + this.props.state.affine.Xy;
+      //   }
+      //
+      //   i = 1
+      //   j = 0;
+      //   // horizontal
+      //   for (let y = this.props.state.affine.Oy; y < this.height; y += this.props.state.step * this.props.state.affine.Yy) {
+      //     ctx.beginPath()
+      //     ctx.moveTo(10 + ((y === this.props.state.affine.Oy) ? this.props.state.affine.Ox : (j * 10) + this.props.state.affine.Ox), 10 + y)
+      //     ctx.lineTo(
+      //       this.props.state.coordinates.find(p => p.id === 'Y2').x,
+      //       this.props.state.coordinates.find(p => p.id === 'Y2').y + y - this.props.state.affine.Oy
+      //     )
+      //     if (y === this.props.state.affine.Oy) {
+      //       ctx.strokeStyle = 'rgba(57,57,66,0.61)'
+      //       ctx.lineWidth = 2
+      //       ctx.stroke()
+      //     } else {
+      //       ctx.strokeStyle = 'rgba(65,64,64,0.35)'
+      //       ctx.lineWidth = 0.5
+      //       ctx.stroke()
+      //     }
+      //     i++;
+      //     j = j + this.props.state.affine.Yx;
+      //   }
+      // } else if (this.props.state.setProjective) {
+      i = 1
+      j = 0
       // vertical
       for (
-        let x = this.props.state.affine.Ox;
+        let x = this.props.state.projective.Ox;
         x < this.width;
-        x += this.props.state.step * this.props.state.affine.Xx
+        x +=
+          this.props.state.step * (this.width / this.props.state.projective.Xx)
       ) {
         ctx.beginPath()
-        ctx.moveTo(x + 10, 10)
+        ctx.moveTo(
+          x + 10,
+          10 +
+            (x === this.props.state.projective.Ox
+              ? this.props.state.projective.Oy
+              : j * 10 + this.props.state.projective.Oy)
+        )
         ctx.lineTo(
-          this.props.state.setAffine
-            ? this.props.state.coordinates.find(p => p.id === 'Y1').x + x
-            : this.props.state.coordinates.find(p => p.id === 'Y1').x + x,
+          this.props.state.coordinates.find(p => p.id === 'Y1').x +
+            x -
+            this.props.state.projective.Ox,
           this.props.state.coordinates.find(p => p.id === 'Y1').y
         )
-        if (x === this.props.state.affine.Ox) {
+        if (x === this.props.state.projective.Ox) {
           ctx.strokeStyle = 'rgba(57,57,66,0.61)'
           ctx.lineWidth = 2
           ctx.stroke()
@@ -118,22 +172,33 @@ class Grid extends React.Component {
           ctx.stroke()
         }
         i++
+        j = j + this.props.state.projective.Xy
       }
 
       i = 1
+      j = 0
       // horizontal
       for (
-        let y = this.props.state.affine.Oy;
+        let y = this.props.state.projective.Oy;
         y < this.height;
-        y += this.props.state.step * this.props.state.affine.Yy
+        y +=
+          this.props.state.step * (this.width / this.props.state.projective.Yy)
       ) {
         ctx.beginPath()
-        ctx.moveTo(10, 10 + y)
+        ctx.moveTo(
+          10 +
+            (y === this.props.state.projective.Oy
+              ? this.props.state.projective.Ox
+              : j * 10 + this.props.state.projective.Ox),
+          10 + y
+        )
         ctx.lineTo(
           this.props.state.coordinates.find(p => p.id === 'Y2').x,
-          this.props.state.coordinates.find(p => p.id === 'Y2').y + y
+          this.props.state.coordinates.find(p => p.id === 'Y2').y +
+            y -
+            this.props.state.projective.Oy
         )
-        if (y === this.props.state.affine.Oy) {
+        if (y === this.props.state.projective.Oy) {
           ctx.strokeStyle = 'rgba(57,57,66,0.61)'
           ctx.lineWidth = 2
           ctx.stroke()
@@ -143,7 +208,54 @@ class Grid extends React.Component {
           ctx.stroke()
         }
         i++
+        j = j + this.props.state.projective.Yx
       }
+      // } else {
+      //   i = 1;
+      //   j = 0;
+      //   // vertical
+      //   for (let x = 0; x < this.width; x += this.props.state.step) {
+      //     ctx.beginPath()
+      //     ctx.moveTo(x + 10, 10)
+      //     ctx.lineTo(this.props.state.coordinates.find(p => p.id === 'Y1').x + x,
+      //       this.props.state.coordinates.find(p => p.id === 'Y1').y
+      //     )
+      //     if (x === 0) {
+      //       ctx.strokeStyle = 'rgba(57,57,66,0.61)'
+      //       ctx.lineWidth = 2
+      //       ctx.stroke()
+      //     } else {
+      //       ctx.strokeStyle = 'rgba(65,64,64,0.35)'
+      //       ctx.lineWidth = 0.5
+      //       ctx.stroke()
+      //     }
+      //     i++;
+      //     j++;
+      //   }
+      //
+      //   i = 1
+      //   j = 0;
+      //   // horizontal
+      //   for (let y = 0; y < this.height; y += this.props.state.step) {
+      //     ctx.beginPath()
+      //     ctx.moveTo(10, 10 + y)
+      //     ctx.lineTo(
+      //       this.props.state.coordinates.find(p => p.id === 'Y2').x,
+      //       this.props.state.coordinates.find(p => p.id === 'Y2').y + y
+      //     )
+      //     if (y === 0) {
+      //       ctx.strokeStyle = 'rgba(57,57,66,0.61)'
+      //       ctx.lineWidth = 2
+      //       ctx.stroke()
+      //     } else {
+      //       ctx.strokeStyle = 'rgba(65,64,64,0.35)'
+      //       ctx.lineWidth = 0.5
+      //       ctx.stroke()
+      //     }
+      //     i++;
+      //     j++;
+      //   }
+      // }
 
       ctx.beginPath()
       ctx.moveTo(
@@ -261,30 +373,74 @@ class Grid extends React.Component {
         0,
         2 * Math.PI
       )
+
       ctx.strokeStyle = '#09227a8c'
       ctx.lineWidth = 2
       ctx.stroke()
       ctx.closePath()
       ctx.beginPath()
-      ctx.moveTo(
-        this.dotX *
-          ((this.props.state.step * this.props.state.affine.Xx) / 10) +
-          10,
-        this.dotY *
-          ((this.props.state.step * this.props.state.affine.Yy) / 10) +
-          10
-      )
-      ctx.arc(
-        this.dotX *
-          ((this.props.state.step * this.props.state.affine.Xx) / 10) +
-          10,
-        this.dotY *
-          ((this.props.state.step * this.props.state.affine.Yy) / 10) +
-          10,
-        1,
-        0,
-        2 * Math.PI
-      )
+      if (this.props.state.setAffine) {
+        ctx.moveTo(
+          this.dotX *
+            ((this.props.state.step * this.props.state.affine.Xx) / 10) +
+            10 +
+            this.props.state.affine.Ox,
+          this.dotY *
+            ((this.props.state.step * this.props.state.affine.Yy) / 10) +
+            10 +
+            this.props.state.affine.Oy
+        )
+        ctx.arc(
+          this.dotX *
+            ((this.props.state.step * this.props.state.affine.Xx) / 10) +
+            10 +
+            this.props.state.affine.Ox,
+          this.dotY *
+            ((this.props.state.step * this.props.state.affine.Yy) / 10) +
+            10 +
+            this.props.state.affine.Oy,
+          1,
+          0,
+          2 * Math.PI
+        )
+      } else if (this.props.state.setProjective) {
+        ctx.moveTo(
+          this.dotX *
+            ((this.props.state.step * this.props.state.projective.Xx) / 10) +
+            10 +
+            this.props.state.projective.Ox,
+          this.dotY *
+            ((this.props.state.step * this.props.state.projective.Yy) / 10) +
+            10 +
+            this.props.state.projective.Oy
+        )
+        ctx.arc(
+          this.dotX *
+            ((this.props.state.step * this.props.state.projective.Xx) / 10) +
+            10 +
+            this.props.state.projective.Ox,
+          this.dotY *
+            ((this.props.state.step * this.props.state.projective.Yy) / 10) +
+            10 +
+            this.props.state.projective.Oy,
+          1,
+          0,
+          2 * Math.PI
+        )
+      } else {
+        ctx.moveTo(
+          this.dotX * (this.props.state.step / 10) + 10,
+          this.dotY * (this.props.state.step / 10) + 10
+        )
+        ctx.arc(
+          this.dotX * (this.props.state.step / 10) + 10,
+          this.dotY * (this.props.state.step / 10) + 10,
+          1,
+          0,
+          2 * Math.PI
+        )
+      }
+
       ctx.strokeStyle = '#f1c40f'
       ctx.fillStyle = '#f1c40f'
       ctx.fill()
@@ -347,231 +503,243 @@ class Grid extends React.Component {
     this.step = 10
     this.radius =
       Number(this.props.state.radius) * (Number(this.props.state.step) / 10)
-    // if (JSON.stringify(this.length) !== JSON.stringify(this.props.state.length)) {
-    //   this.update = true;
-    // }
-    //
-    // if (this.props.state.resetEuclid || this.props.state.resetAffine) {
-    //   this.update = true;
-    //   for (let key in this.props.state.length) {
-    //     this.length[key] = this.props.state.length[key];
-    //   }
-    // }
-    //
-    // if (this.update) {
-
-    this.coordinates = [
-      {
-        id: 'A',
-        x: this.props.state.coordinates.find(p => p.id === 'A').x,
-        y: this.props.state.coordinates.find(p => p.id === 'A').y
-      },
-      {
-        id: 'X',
-        x:
-          this.props.state.coordinates.find(p => p.id === 'X').x -
-          this.length.XA +
-          this.props.state.length.XA,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'X').y -
-          this.length.KX +
-          this.props.state.length.KX
-      },
-      {
-        id: 'K',
-        x: this.props.state.coordinates.find(p => p.id === 'K').x,
-        y: this.props.state.coordinates.find(p => p.id === 'K').y
-      },
-      {
-        id: 'B',
-        x: this.props.state.coordinates.find(p => p.id === 'B').x,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'B').y -
-          this.length.AB +
-          this.props.state.length.AB
-      },
-      {
-        id: 'C',
-        x: this.props.state.coordinates.find(p => p.id === 'C').x,
-        y: this.props.state.coordinates.find(p => p.id === 'C').y
-      },
-      {
-        id: 'D',
-        x: this.props.state.coordinates.find(p => p.id === 'D').x,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'D').y -
-          this.length.CD +
-          this.props.state.length.CD
-      },
-      {
-        id: 'E',
-        x: this.props.state.coordinates.find(p => p.id === 'E').x,
-        y: this.props.state.coordinates.find(p => p.id === 'E').y
-      },
-      {
-        id: 'F',
-        x: this.props.state.coordinates.find(p => p.id === 'F').x,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'F').y -
-          this.length.EF +
-          this.props.state.length.EF
-      },
-      {
-        id: 'G',
-        x:
-          this.props.state.coordinates.find(p => p.id === 'G').x -
-          this.length.FG +
-          this.props.state.length.FG,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'G').y -
-          this.length.GH +
-          this.props.state.length.GH
-      },
-      {
-        id: 'H',
-        x: this.props.state.coordinates.find(p => p.id === 'H').x,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'H').y -
-          this.length.IJ +
-          this.props.state.length.IJ
-      },
-      {
-        id: 'O',
-        x: this.props.state.coordinates.find(p => p.id === 'O').x,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'O').y -
-          this.length.MN +
-          this.props.state.length.MN
-      },
-      {
-        id: 'P',
-        x: this.props.state.coordinates.find(p => p.id === 'P').x,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'P').y -
-          this.length.OP +
-          this.props.state.length.OP
-      },
-      {
-        id: 'Q',
-        x:
-          this.props.state.coordinates.find(p => p.id === 'Q').x -
-          this.length.PQ +
-          this.props.state.length.PQ,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'Q').y -
-          this.length.QR +
-          this.props.state.length.QR
-      },
-      {
-        id: 'R',
-        x: this.props.state.coordinates.find(p => p.id === 'R').x,
-        y: this.props.state.coordinates.find(p => p.id === 'R').y
-      },
-      {
-        id: 'S',
-        x: this.props.state.coordinates.find(p => p.id === 'S').x,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'S').y -
-          this.length.ST +
-          this.props.state.length.ST
-      },
-      {
-        id: 'T',
-        x: this.props.state.coordinates.find(p => p.id === 'T').x,
-        y: this.props.state.coordinates.find(p => p.id === 'T').y
-      },
-      {
-        id: 'U',
-        x: this.props.state.coordinates.find(p => p.id === 'U').x,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'U').y -
-          this.length.UV +
-          this.props.state.length.UV
-      },
-      {
-        id: 'V',
-        x: this.props.state.coordinates.find(p => p.id === 'V').x,
-        y: this.props.state.coordinates.find(p => p.id === 'V').y
-      },
-      {
-        id: 'W',
-        x:
-          this.props.state.coordinates.find(p => p.id === 'W').x -
-          this.length.VW +
-          this.props.state.length.VW,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'W').y -
-          this.length.WL +
-          this.props.state.length.WL
-      },
-      {
-        id: 'L',
-        x: this.props.state.coordinates.find(p => p.id === 'L').x,
-        y: this.props.state.coordinates.find(p => p.id === 'L').y
-      },
-      {
-        id: 'I',
-        x: this.props.state.coordinates.find(p => p.id === 'I').x,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'I').y -
-          this.length.IJ +
-          this.props.state.length.IJ
-      },
-      {
-        id: 'J',
-        x: this.props.state.coordinates.find(p => p.id === 'J').x,
-        y: this.props.state.coordinates.find(p => p.id === 'J').y
-      },
-      {
-        id: 'M',
-        x:
-          this.props.state.coordinates.find(p => p.id === 'M').x -
-          this.length.JM +
-          this.props.state.length.JM,
-        y: this.props.state.coordinates.find(p => p.id === 'M').y
-      },
-      {
-        id: 'N',
-        x:
-          this.props.state.coordinates.find(p => p.id === 'N').x -
-          this.length.NI +
-          this.props.state.length.NI,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'N').y -
-          this.length.MN +
-          this.props.state.length.MN
-      },
-      {
-        id: 'Z',
-        x:
-          this.props.state.coordinates.find(p => p.id === 'Z').x +
-          this.props.state.affine.Ox,
-        y:
-          this.props.state.coordinates.find(p => p.id === 'Z').y +
-          this.props.state.affine.Oy
-      },
-      {
-        id: 'Y',
-        x: this.props.state.coordinates.find(p => p.id === 'Y').x,
-        y: this.props.state.coordinates.find(p => p.id === 'Y').y
-      },
-      {
-        id: 'Y1',
-        x: this.props.state.coordinates.find(p => p.id === 'Y1').x,
-        y: this.props.state.coordinates.find(p => p.id === 'Y1').y
-      },
-      {
-        id: 'Y2',
-        x: this.props.state.coordinates.find(p => p.id === 'Y2').x,
-        y: this.props.state.coordinates.find(p => p.id === 'Y2').y
-      }
-    ]
-    this.props.state.coordinates = this.coordinates
-    for (let key in this.props.state.length) {
-      this.length[key] = this.props.state.length[key]
+    if (
+      JSON.stringify(this.length) !== JSON.stringify(this.props.state.length)
+    ) {
+      this.update = true
     }
-    //   this.update = false;
-    // }
+
+    if (this.step !== this.props.state.step) {
+      this.update = true
+      this.step = this.props.state.step
+    }
+
+    if (this.props.state.setAffine || this.props.state.setProjective) {
+      this.update = true
+    }
+
+    if (
+      this.props.state.resetEuclid ||
+      this.props.state.resetAffine ||
+      this.props.state.resetProjective
+    ) {
+      this.update = true
+      for (let key in this.props.state.length) {
+        this.length[key] = this.props.state.length[key]
+      }
+      this.props.state.resetEuclid = false
+      this.props.state.resetAffine = false
+      this.props.state.resetProjective = false
+    }
+
+    if (this.update) {
+      this.coordinates = [
+        {
+          id: 'A',
+          x: this.props.state.coordinates.find(p => p.id === 'A').x,
+          y: this.props.state.coordinates.find(p => p.id === 'A').y
+        },
+        {
+          id: 'X',
+          x:
+            this.props.state.coordinates.find(p => p.id === 'X').x -
+            this.length.XA +
+            this.props.state.length.XA,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'X').y -
+            this.length.KX +
+            this.props.state.length.KX
+        },
+        {
+          id: 'K',
+          x: this.props.state.coordinates.find(p => p.id === 'K').x,
+          y: this.props.state.coordinates.find(p => p.id === 'K').y
+        },
+        {
+          id: 'B',
+          x: this.props.state.coordinates.find(p => p.id === 'B').x,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'B').y -
+            this.length.AB +
+            this.props.state.length.AB
+        },
+        {
+          id: 'C',
+          x: this.props.state.coordinates.find(p => p.id === 'C').x,
+          y: this.props.state.coordinates.find(p => p.id === 'C').y
+        },
+        {
+          id: 'D',
+          x: this.props.state.coordinates.find(p => p.id === 'D').x,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'D').y -
+            this.length.CD +
+            this.props.state.length.CD
+        },
+        {
+          id: 'E',
+          x: this.props.state.coordinates.find(p => p.id === 'E').x,
+          y: this.props.state.coordinates.find(p => p.id === 'E').y
+        },
+        {
+          id: 'F',
+          x: this.props.state.coordinates.find(p => p.id === 'F').x,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'F').y -
+            this.length.EF +
+            this.props.state.length.EF
+        },
+        {
+          id: 'G',
+          x:
+            this.props.state.coordinates.find(p => p.id === 'G').x -
+            this.length.FG +
+            this.props.state.length.FG,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'G').y -
+            this.length.GH +
+            this.props.state.length.GH
+        },
+        {
+          id: 'H',
+          x: this.props.state.coordinates.find(p => p.id === 'H').x,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'H').y -
+            this.length.IJ +
+            this.props.state.length.IJ
+        },
+        {
+          id: 'O',
+          x: this.props.state.coordinates.find(p => p.id === 'O').x,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'O').y -
+            this.length.MN +
+            this.props.state.length.MN
+        },
+        {
+          id: 'P',
+          x: this.props.state.coordinates.find(p => p.id === 'P').x,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'P').y -
+            this.length.OP +
+            this.props.state.length.OP
+        },
+        {
+          id: 'Q',
+          x:
+            this.props.state.coordinates.find(p => p.id === 'Q').x -
+            this.length.PQ +
+            this.props.state.length.PQ,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'Q').y -
+            this.length.QR +
+            this.props.state.length.QR
+        },
+        {
+          id: 'R',
+          x: this.props.state.coordinates.find(p => p.id === 'R').x,
+          y: this.props.state.coordinates.find(p => p.id === 'R').y
+        },
+        {
+          id: 'S',
+          x: this.props.state.coordinates.find(p => p.id === 'S').x,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'S').y -
+            this.length.ST +
+            this.props.state.length.ST
+        },
+        {
+          id: 'T',
+          x: this.props.state.coordinates.find(p => p.id === 'T').x,
+          y: this.props.state.coordinates.find(p => p.id === 'T').y
+        },
+        {
+          id: 'U',
+          x: this.props.state.coordinates.find(p => p.id === 'U').x,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'U').y -
+            this.length.UV +
+            this.props.state.length.UV
+        },
+        {
+          id: 'V',
+          x: this.props.state.coordinates.find(p => p.id === 'V').x,
+          y: this.props.state.coordinates.find(p => p.id === 'V').y
+        },
+        {
+          id: 'W',
+          x:
+            this.props.state.coordinates.find(p => p.id === 'W').x -
+            this.length.VW +
+            this.props.state.length.VW,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'W').y -
+            this.length.WL +
+            this.props.state.length.WL
+        },
+        {
+          id: 'L',
+          x: this.props.state.coordinates.find(p => p.id === 'L').x,
+          y: this.props.state.coordinates.find(p => p.id === 'L').y
+        },
+        {
+          id: 'I',
+          x: this.props.state.coordinates.find(p => p.id === 'I').x,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'I').y -
+            this.length.IJ +
+            this.props.state.length.IJ
+        },
+        {
+          id: 'J',
+          x: this.props.state.coordinates.find(p => p.id === 'J').x,
+          y: this.props.state.coordinates.find(p => p.id === 'J').y
+        },
+        {
+          id: 'M',
+          x:
+            this.props.state.coordinates.find(p => p.id === 'M').x -
+            this.length.JM +
+            this.props.state.length.JM,
+          y: this.props.state.coordinates.find(p => p.id === 'M').y
+        },
+        {
+          id: 'N',
+          x:
+            this.props.state.coordinates.find(p => p.id === 'N').x -
+            this.length.NI +
+            this.props.state.length.NI,
+          y:
+            this.props.state.coordinates.find(p => p.id === 'N').y -
+            this.length.MN +
+            this.props.state.length.MN
+        },
+        {
+          id: 'Z',
+          x: this.props.state.coordinates.find(p => p.id === 'Z').x,
+          y: this.props.state.coordinates.find(p => p.id === 'Z').y
+        },
+        {
+          id: 'Y',
+          x: this.props.state.coordinates.find(p => p.id === 'Y').x,
+          y: this.props.state.coordinates.find(p => p.id === 'Y').y
+        },
+        {
+          id: 'Y1',
+          x: this.props.state.coordinates.find(p => p.id === 'Y1').x,
+          y: this.props.state.coordinates.find(p => p.id === 'Y1').y
+        },
+        {
+          id: 'Y2',
+          x: this.props.state.coordinates.find(p => p.id === 'Y2').x,
+          y: this.props.state.coordinates.find(p => p.id === 'Y2').y
+        }
+      ]
+      this.props.state.coordinates = this.coordinates
+      for (let key in this.props.state.length) {
+        this.length[key] = this.props.state.length[key]
+      }
+    }
   }
 
   componentDidMount() {
@@ -596,23 +764,6 @@ class Grid extends React.Component {
       .fill(0)
       .reduce((acc, _, i) => [...acc, this.stepLen * (i + 1)], [])
 
-    // const XLines = () =>
-    //   steps.map((step, i) => (
-    //     <Line
-    //       key={i}
-    //       start={new Vector(step * this.props.state.affine.Xx, 0)}
-    //       end={new Vector(step * this.props.state.affine.Xx, this.height)}
-    //     />
-    //   ))
-    // const YLines = () =>
-    //   steps.map((step, i) => (
-    //     <Line
-    //       key={i}
-    //       start={new Vector(0, this.height - step * this.props.state.affine.Yy)}
-    //       end={new Vector(this.width, this.height - step * this.props.state.affine.Yy)}
-    //     />
-    //   ))
-
     if (this.didMount) {
       this.draw()
     }
@@ -621,131 +772,6 @@ class Grid extends React.Component {
       <Container>
         <canvas id="canvas" width="610px" height="480px" />
       </Container>
-      /*<Container>
-        <svg
-          width={this.width}
-          height={this.height}
-          style={{ position: 'relative' }}
-        >
-          <g>
-            <Line
-              main
-              OY
-              start={new Vector(this.props.state.affine.Ox * this.props.state.step * this.props.state.affine.Xx, this.height)}
-              end={new Vector(this.props.state.affine.Ox * this.props.state.step * this.props.state.affine.Xx, 0)}
-            />
-            <Line
-              main
-              OX
-              start={new Vector(0, this.height - this.props.state.affine.Oy * this.props.state.step * this.props.state.affine.Yy)}
-              end={new Vector(this.width, this.height - this.props.state.affine.Oy * this.props.state.step * this.props.state.affine.Yy)}
-            />
-            <XLines />
-            <YLines />
-          </g>
-        </svg>
-        <svg
-          width={this.width}
-          height={this.height}
-          style={{
-            position: 'absolute',
-            top: '0px',
-            left: '0px',
-            transform: 'scaleY(-1)'
-          }}
-        >
-          <g style={{ transform: scale }}>{children}</g>
-        </svg>
-        <svg
-          width={this.width}
-          height={this.height}
-          style={{
-            position: 'absolute',
-            top: '0px',
-            left: '0px',
-            transform: 'scaleY(-1)'
-          }}
-        >
-          <g style={{ transform: scale }}>
-            <circle
-              cx={this.dotX}
-              cy={this.dotY}
-              r="2px"
-              strokeWidth="0"
-              fill={theme.color.yellow}
-            />
-          </g>
-        </svg>
-        
-        <svg
-          width={this.width}
-          height={this.height}
-          style={{
-            position: 'absolute',
-            top: '0px',
-            left: '0px',
-            transform: 'scaleY(-1)'
-          }}
-        >
-          <g style={{ transform: scale }}>
-            <circle
-              cx={this.props.state.coordinates.find(p => p.id === 'Y').x}
-              cy={this.props.state.coordinates.find(p => p.id === 'Y').y}
-              r="2px"
-              strokeWidth="0"
-              fill={theme.color.red}
-            />
-          </g>
-        </svg>
-        
-        <svg
-          width={this.width}
-          height={this.height}
-          style={{
-            position: 'absolute',
-            top: '0px',
-            left: '0px',
-            transform: 'scaleY(-1)'
-          }}
-        >
-          <g style={{ transform: scale }}>
-            <circle
-              cx={this.props.state.coordinates.find(p => p.id === 'Y1').x}
-              cy={this.props.state.coordinates.find(p => p.id === 'Y1').y}
-              r="2px"
-              strokeWidth="0"
-              fill={theme.color.green}
-            />
-          </g>
-        </svg>
-        
-        <svg
-          width={this.width}
-          height={this.height}
-          style={{
-            position: 'absolute',
-            top: '0px',
-            left: '0px',
-            transform: 'scaleY(-1)'
-          }}
-        >
-          <g style={{ transform: scale }}>
-            <circle
-              cx={this.props.state.coordinates.find(p => p.id === 'Y2').x}
-              cy={this.props.state.coordinates.find(p => p.id === 'Y2').y}
-              r="2px"
-              strokeWidth="0"
-              fill={theme.color.purple}
-            />
-          </g>
-        </svg>
-        
-        <p className="mark" style={{bottom: '45px', left: '-10px'}}>0</p>
-        <p className="mark arrow" style={{top: '-15.3px', left: '-6px'}}>▲</p>
-        <p className="mark arrow" style={{bottom: '51px', right: '-11.6px', transform: "rotate(90deg)"}}>▲</p>
-        <p className="mark" style={{top: '-3px', left: '-8px'}}>y</p>
-        <p className="mark" style={{bottom: '49px', right: '3px'}}>x</p>
-      </Container>*/
     )
   }
 

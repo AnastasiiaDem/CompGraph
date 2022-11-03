@@ -88,7 +88,7 @@ input {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    height: 530px;
+    height: 500px;
     width: 500px;
     justify-content: flex-start;
     align-items: stretch;

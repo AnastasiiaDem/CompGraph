@@ -1,13 +1,12 @@
 import React from 'react'
 import '../style.css'
 import Grid from './grid'
-import Canvas from './canva'
 import styled from 'styled-components'
 import Form from './form'
 
 const Container = styled.div`
   width: 100%;
-  height: 580px;
+  height: 560px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -84,6 +83,36 @@ class Transformation extends React.Component {
     WL: 10,
     LK: 35
   }
+  defaultCoordinates = [
+    { id: 'A', x: 20, y: 20 },
+    { id: 'X', x: 65, y: 20 },
+    { id: 'K', x: 65, y: 30 },
+    { id: 'B', x: 20, y: 30 },
+    { id: 'C', x: 42.5, y: 50 },
+    { id: 'D', x: 42.5, y: 70 },
+    { id: 'E', x: 20, y: 90 },
+    { id: 'F', x: 20, y: 100 },
+    { id: 'G', x: 65, y: 100 },
+    { id: 'H', x: 65, y: 90 },
+    { id: 'O', x: 100, y: 90 },
+    { id: 'P', x: 100, y: 100 },
+    { id: 'Q', x: 145, y: 100 },
+    { id: 'R', x: 145, y: 90 },
+    { id: 'S', x: 122.5, y: 70 },
+    { id: 'T', x: 122.5, y: 50 },
+    { id: 'U', x: 145, y: 30 },
+    { id: 'V', x: 145, y: 20 },
+    { id: 'W', x: 100, y: 20 },
+    { id: 'L', x: 100, y: 30 },
+    { id: 'I', x: 55, y: 90 },
+    { id: 'J', x: 55, y: 30 },
+    { id: 'M', x: 110, y: 30 },
+    { id: 'N', x: 110, y: 90 },
+    { id: 'Z', x: 82.5, y: 60 },
+    { id: 'Y', x: 10, y: 10 },
+    { id: 'Y1', x: 10, y: 480 },
+    { id: 'Y2', x: 610, y: 10 }
+  ]
 
   constructor(props) {
     super(props)
@@ -323,8 +352,8 @@ class Transformation extends React.Component {
           },
           {
             id: 'Z',
-            x: this.defC.find(p => p.id === 'Z').x + this.props.state.affine.Ox,
-            y: this.defC.find(p => p.id === 'Z').y + this.props.state.affine.Oy
+            x: this.defC.find(p => p.id === 'Z').x,
+            y: this.defC.find(p => p.id === 'Z').y
           },
           {
             id: 'Y',
@@ -370,36 +399,7 @@ class Transformation extends React.Component {
           this.calculate = true
           this.props.state.setAffine = true
           this.transformMatrix = this.setAffineMatrix()
-          this.props.state.coordinates = [
-            { id: 'A', x: 20, y: 20 },
-            { id: 'X', x: 65, y: 20 },
-            { id: 'K', x: 65, y: 30 },
-            { id: 'B', x: 20, y: 30 },
-            { id: 'C', x: 42.5, y: 50 },
-            { id: 'D', x: 42.5, y: 70 },
-            { id: 'E', x: 20, y: 90 },
-            { id: 'F', x: 20, y: 100 },
-            { id: 'G', x: 65, y: 100 },
-            { id: 'H', x: 65, y: 90 },
-            { id: 'O', x: 100, y: 90 },
-            { id: 'P', x: 100, y: 100 },
-            { id: 'Q', x: 145, y: 100 },
-            { id: 'R', x: 145, y: 90 },
-            { id: 'S', x: 122.5, y: 70 },
-            { id: 'T', x: 122.5, y: 50 },
-            { id: 'U', x: 145, y: 30 },
-            { id: 'V', x: 145, y: 20 },
-            { id: 'W', x: 100, y: 20 },
-            { id: 'L', x: 100, y: 30 },
-            { id: 'I', x: 55, y: 90 },
-            { id: 'J', x: 55, y: 30 },
-            { id: 'M', x: 110, y: 30 },
-            { id: 'N', x: 110, y: 90 },
-            { id: 'Z', x: 82.5, y: 60 },
-            { id: 'Y', x: 10, y: 10 },
-            { id: 'Y1', x: 10, y: 480 },
-            { id: 'Y2', x: 610, y: 10 }
-          ]
+          this.props.state.coordinates = this.defaultCoordinates
         }
       } else if (id === 'setProjective') {
         this.setState({
@@ -411,36 +411,7 @@ class Transformation extends React.Component {
           this.calculate = true
           this.props.state.setProjective = true
           this.transformMatrix = this.setProjectiveMatrix()
-          this.props.state.coordinates = [
-            { id: 'A', x: 20, y: 20 },
-            { id: 'X', x: 65, y: 20 },
-            { id: 'K', x: 65, y: 30 },
-            { id: 'B', x: 20, y: 30 },
-            { id: 'C', x: 42.5, y: 50 },
-            { id: 'D', x: 42.5, y: 70 },
-            { id: 'E', x: 20, y: 90 },
-            { id: 'F', x: 20, y: 100 },
-            { id: 'G', x: 65, y: 100 },
-            { id: 'H', x: 65, y: 90 },
-            { id: 'O', x: 100, y: 90 },
-            { id: 'P', x: 100, y: 100 },
-            { id: 'Q', x: 145, y: 100 },
-            { id: 'R', x: 145, y: 90 },
-            { id: 'S', x: 122.5, y: 70 },
-            { id: 'T', x: 122.5, y: 50 },
-            { id: 'U', x: 145, y: 30 },
-            { id: 'V', x: 145, y: 20 },
-            { id: 'W', x: 100, y: 20 },
-            { id: 'L', x: 100, y: 30 },
-            { id: 'I', x: 55, y: 90 },
-            { id: 'J', x: 55, y: 30 },
-            { id: 'M', x: 110, y: 30 },
-            { id: 'N', x: 110, y: 90 },
-            { id: 'Z', x: 82.5, y: 60 },
-            { id: 'Y', x: 10, y: 10 },
-            { id: 'Y1', x: 10, y: 480 },
-            { id: 'Y2', x: 610, y: 10 }
-          ]
+          this.props.state.coordinates = this.defaultCoordinates
         }
       } else if (side === 'dotY' || side === 'dotX') {
         this.setState({
@@ -464,12 +435,8 @@ class Transformation extends React.Component {
 
   setRotationMatrix() {
     const angle = -((Number(this.props.state.deg) * Math.PI) / 180)
-    const dotX =
-      Number(this.props.state.dotX) *
-      ((this.props.state.step * this.props.state.affine.Xx) / 10)
-    const dotY =
-      Number(this.props.state.dotY) *
-      ((this.props.state.step * this.props.state.affine.Yy) / 10)
+    const dotX = Number(this.props.state.dotX) * (this.props.state.step / 10)
+    const dotY = Number(this.props.state.dotY) * (this.props.state.step / 10)
 
     return [
       [Math.cos(angle), Math.sin(angle), 0],
@@ -585,9 +552,7 @@ class Transformation extends React.Component {
 
     return (
       <Container>
-        <Grid state={this.props.state}>
-          <Canvas state={this.props.state} />
-        </Grid>
+        <Grid state={this.props.state} />
         <Form updateData={this.updateData} state={this.props.state} />
       </Container>
     )

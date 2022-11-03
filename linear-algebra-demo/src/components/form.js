@@ -4,76 +4,79 @@ import '../style.css'
 export default class Form extends React.Component {
   dotX = 72.5
   dotY = 50
+  defaultCoordinates = [
+    { id: 'A', x: 20, y: 20 },
+    { id: 'X', x: 65, y: 20 },
+    { id: 'K', x: 65, y: 30 },
+    { id: 'B', x: 20, y: 30 },
+    { id: 'C', x: 42.5, y: 50 },
+    { id: 'D', x: 42.5, y: 70 },
+    { id: 'E', x: 20, y: 90 },
+    { id: 'F', x: 20, y: 100 },
+    { id: 'G', x: 65, y: 100 },
+    { id: 'H', x: 65, y: 90 },
+    { id: 'O', x: 100, y: 90 },
+    { id: 'P', x: 100, y: 100 },
+    { id: 'Q', x: 145, y: 100 },
+    { id: 'R', x: 145, y: 90 },
+    { id: 'S', x: 122.5, y: 70 },
+    { id: 'T', x: 122.5, y: 50 },
+    { id: 'U', x: 145, y: 30 },
+    { id: 'V', x: 145, y: 20 },
+    { id: 'W', x: 100, y: 20 },
+    { id: 'L', x: 100, y: 30 },
+    { id: 'I', x: 55, y: 90 },
+    { id: 'J', x: 55, y: 30 },
+    { id: 'M', x: 110, y: 30 },
+    { id: 'N', x: 110, y: 90 },
+    { id: 'Z', x: 82.5, y: 60 },
+    { id: 'Y', x: 10, y: 10 },
+    { id: 'Y1', x: 10, y: 480 },
+    { id: 'Y2', x: 610, y: 10 }
+  ]
+  defaultLength = {
+    AB: 10,
+    BC: 30.1,
+    CD: 20,
+    DE: 30.1,
+    EF: 10,
+    FG: 45,
+    GH: 10,
+    HI: 10,
+    IJ: 60,
+    JK: 10,
+    KX: 10,
+    XA: 45,
+    KL: 35,
+    LM: 10,
+    JM: 55,
+    MN: 60,
+    NO: 10,
+    NI: 55,
+    OH: 35,
+    OP: 10,
+    PQ: 45,
+    QR: 10,
+    RS: 30.1,
+    ST: 20,
+    TU: 30.1,
+    UV: 10,
+    VW: 45,
+    WL: 10,
+    LK: 35
+  }
 
   constructor(props) {
     super(props)
+
     this.state = {
-      coordinates: [
-        { id: 'A', x: 20, y: 20 },
-        { id: 'X', x: 65, y: 20 },
-        { id: 'K', x: 65, y: 30 },
-        { id: 'B', x: 20, y: 30 },
-        { id: 'C', x: 42.5, y: 50 },
-        { id: 'D', x: 42.5, y: 70 },
-        { id: 'E', x: 20, y: 90 },
-        { id: 'F', x: 20, y: 100 },
-        { id: 'G', x: 65, y: 100 },
-        { id: 'H', x: 65, y: 90 },
-        { id: 'O', x: 100, y: 90 },
-        { id: 'P', x: 100, y: 100 },
-        { id: 'Q', x: 145, y: 100 },
-        { id: 'R', x: 145, y: 90 },
-        { id: 'S', x: 122.5, y: 70 },
-        { id: 'T', x: 122.5, y: 50 },
-        { id: 'U', x: 145, y: 30 },
-        { id: 'V', x: 145, y: 20 },
-        { id: 'W', x: 100, y: 20 },
-        { id: 'L', x: 100, y: 30 },
-        { id: 'I', x: 55, y: 90 },
-        { id: 'J', x: 55, y: 30 },
-        { id: 'M', x: 110, y: 30 },
-        { id: 'N', x: 110, y: 90 },
-        { id: 'Z', x: 82.5, y: 60 },
-        { id: 'Y', x: 10, y: 10 },
-        { id: 'Y1', x: 10, y: 480 },
-        { id: 'Y2', x: 610, y: 10 }
-      ],
+      coordinates: this.defaultCoordinates,
       step: 10,
       deg: 0,
       dotX: 72.5,
       dotY: 50,
       radius: 15,
-      length: {
-        AB: 10,
-        BC: 30.1,
-        CD: 20,
-        DE: 30.1,
-        EF: 10,
-        FG: 45,
-        GH: 10,
-        HI: 10,
-        IJ: 60,
-        JK: 10,
-        KX: 10,
-        XA: 45,
-        KL: 35,
-        LM: 10,
-        JM: 55,
-        MN: 60,
-        NO: 10,
-        NI: 55,
-        OH: 35,
-        OP: 10,
-        PQ: 45,
-        QR: 10,
-        RS: 30.1,
-        ST: 20,
-        TU: 30.1,
-        UV: 10,
-        VW: 45,
-        WL: 10,
-        LK: 35
-      },
+      length: this.defaultLength,
       resetEuclid: false,
       affine: {
         Xx: 1,
@@ -118,205 +121,28 @@ export default class Form extends React.Component {
       this.props.state.projective[id] = Number(value)
     } else if (id === 'resetEuclid') {
       this.setState({
-        coordinates: [
-          { id: 'A', x: 20, y: 20 },
-          { id: 'X', x: 65, y: 20 },
-          { id: 'K', x: 65, y: 30 },
-          { id: 'B', x: 20, y: 30 },
-          { id: 'C', x: 42.5, y: 50 },
-          { id: 'D', x: 42.5, y: 70 },
-          { id: 'E', x: 20, y: 90 },
-          { id: 'F', x: 20, y: 100 },
-          { id: 'G', x: 65, y: 100 },
-          { id: 'H', x: 65, y: 90 },
-          { id: 'O', x: 100, y: 90 },
-          { id: 'P', x: 100, y: 100 },
-          { id: 'Q', x: 145, y: 100 },
-          { id: 'R', x: 145, y: 90 },
-          { id: 'S', x: 122.5, y: 70 },
-          { id: 'T', x: 122.5, y: 50 },
-          { id: 'U', x: 145, y: 30 },
-          { id: 'V', x: 145, y: 20 },
-          { id: 'W', x: 100, y: 20 },
-          { id: 'L', x: 100, y: 30 },
-          { id: 'I', x: 55, y: 90 },
-          { id: 'J', x: 55, y: 30 },
-          { id: 'M', x: 110, y: 30 },
-          { id: 'N', x: 110, y: 90 },
-          { id: 'Z', x: 82.5, y: 60 },
-          { id: 'Y', x: 10, y: 10 },
-          { id: 'Y1', x: 10, y: 480 },
-          { id: 'Y2', x: 610, y: 10 }
-        ],
+        coordinates: this.defaultCoordinates,
         step: this.state.step,
         deg: this.state.deg,
         dotX: this.state.dotX,
         dotY: this.state.dotY,
         radius: this.state.radius,
-        length: {
-          AB: 10,
-          BC: 30.1,
-          CD: 20,
-          DE: 30.1,
-          EF: 10,
-          FG: 45,
-          GH: 10,
-          HI: 10,
-          IJ: 60,
-          JK: 10,
-          KX: 10,
-          XA: 45,
-          KL: 35,
-          LM: 10,
-          JM: 55,
-          MN: 60,
-          NO: 10,
-          NI: 55,
-          OH: 35,
-          OP: 10,
-          PQ: 45,
-          QR: 10,
-          RS: 30.1,
-          ST: 20,
-          TU: 30.1,
-          UV: 10,
-          VW: 45,
-          WL: 10,
-          LK: 35
-        },
+        length: this.defaultLength,
         resetEuclid: true
       })
-      this.props.state.coordinates = [
-        { id: 'A', x: 20, y: 20 },
-        { id: 'X', x: 65, y: 20 },
-        { id: 'K', x: 65, y: 30 },
-        { id: 'B', x: 20, y: 30 },
-        { id: 'C', x: 42.5, y: 50 },
-        { id: 'D', x: 42.5, y: 70 },
-        { id: 'E', x: 20, y: 90 },
-        { id: 'F', x: 20, y: 100 },
-        { id: 'G', x: 65, y: 100 },
-        { id: 'H', x: 65, y: 90 },
-        { id: 'O', x: 100, y: 90 },
-        { id: 'P', x: 100, y: 100 },
-        { id: 'Q', x: 145, y: 100 },
-        { id: 'R', x: 145, y: 90 },
-        { id: 'S', x: 122.5, y: 70 },
-        { id: 'T', x: 122.5, y: 50 },
-        { id: 'U', x: 145, y: 30 },
-        { id: 'V', x: 145, y: 20 },
-        { id: 'W', x: 100, y: 20 },
-        { id: 'L', x: 100, y: 30 },
-        { id: 'I', x: 55, y: 90 },
-        { id: 'J', x: 55, y: 30 },
-        { id: 'M', x: 110, y: 30 },
-        { id: 'N', x: 110, y: 90 },
-        { id: 'Z', x: 82.5, y: 60 },
-        { id: 'Y', x: 10, y: 10 },
-        { id: 'Y1', x: 10, y: 480 },
-        { id: 'Y2', x: 610, y: 10 }
-      ]
+      this.props.state.coordinates = this.defaultCoordinates
       this.props.state.step = this.state.step
       this.props.state.deg = this.state.deg
       this.props.state.dotX = this.state.dotX
       this.props.state.dotY = this.state.dotY
       this.props.state.radius = this.state.radius
-      this.props.state.length = {
-        AB: 10,
-        BC: 30.1,
-        CD: 20,
-        DE: 30.1,
-        EF: 10,
-        FG: 45,
-        GH: 10,
-        HI: 10,
-        IJ: 60,
-        JK: 10,
-        KX: 10,
-        XA: 45,
-        KL: 35,
-        LM: 10,
-        JM: 55,
-        MN: 60,
-        NO: 10,
-        NI: 55,
-        OH: 35,
-        OP: 10,
-        PQ: 45,
-        QR: 10,
-        RS: 30.1,
-        ST: 20,
-        TU: 30.1,
-        UV: 10,
-        VW: 45,
-        WL: 10,
-        LK: 35
-      }
+      this.props.state.length = this.defaultLength
       this.props.state.resetEuclid = true
       this.props.updateData(this.props.state, 'resetEuclid')
     } else if (id === 'resetAffine') {
       this.setState({
-        length: {
-          AB: 10,
-          BC: 30.1,
-          CD: 20,
-          DE: 30.1,
-          EF: 10,
-          FG: 45,
-          GH: 10,
-          HI: 10,
-          IJ: 60,
-          JK: 10,
-          KX: 10,
-          XA: 45,
-          KL: 35,
-          LM: 10,
-          JM: 55,
-          MN: 60,
-          NO: 10,
-          NI: 55,
-          OH: 35,
-          OP: 10,
-          PQ: 45,
-          QR: 10,
-          RS: 30.1,
-          ST: 20,
-          TU: 30.1,
-          UV: 10,
-          VW: 45,
-          WL: 10,
-          LK: 35
-        },
-        coordinates: [
-          { id: 'A', x: 20, y: 20 },
-          { id: 'X', x: 65, y: 20 },
-          { id: 'K', x: 65, y: 30 },
-          { id: 'B', x: 20, y: 30 },
-          { id: 'C', x: 42.5, y: 50 },
-          { id: 'D', x: 42.5, y: 70 },
-          { id: 'E', x: 20, y: 90 },
-          { id: 'F', x: 20, y: 100 },
-          { id: 'G', x: 65, y: 100 },
-          { id: 'H', x: 65, y: 90 },
-          { id: 'O', x: 100, y: 90 },
-          { id: 'P', x: 100, y: 100 },
-          { id: 'Q', x: 145, y: 100 },
-          { id: 'R', x: 145, y: 90 },
-          { id: 'S', x: 122.5, y: 70 },
-          { id: 'T', x: 122.5, y: 50 },
-          { id: 'U', x: 145, y: 30 },
-          { id: 'V', x: 145, y: 20 },
-          { id: 'W', x: 100, y: 20 },
-          { id: 'L', x: 100, y: 30 },
-          { id: 'I', x: 55, y: 90 },
-          { id: 'J', x: 55, y: 30 },
-          { id: 'M', x: 110, y: 30 },
-          { id: 'N', x: 110, y: 90 },
-          { id: 'Z', x: 82.5, y: 60 },
-          { id: 'Y', x: 10, y: 10 },
-          { id: 'Y1', x: 10, y: 480 },
-          { id: 'Y2', x: 610, y: 10 }
-        ],
+        length: this.defaultLength,
+        coordinates: this.defaultCoordinates,
         affine: {
           Xx: 1,
           Xy: 0,
@@ -328,36 +154,7 @@ export default class Form extends React.Component {
         setAffine: false,
         resetAffine: true
       })
-      this.props.state.coordinates = [
-        { id: 'A', x: 20, y: 20 },
-        { id: 'X', x: 65, y: 20 },
-        { id: 'K', x: 65, y: 30 },
-        { id: 'B', x: 20, y: 30 },
-        { id: 'C', x: 42.5, y: 50 },
-        { id: 'D', x: 42.5, y: 70 },
-        { id: 'E', x: 20, y: 90 },
-        { id: 'F', x: 20, y: 100 },
-        { id: 'G', x: 65, y: 100 },
-        { id: 'H', x: 65, y: 90 },
-        { id: 'O', x: 100, y: 90 },
-        { id: 'P', x: 100, y: 100 },
-        { id: 'Q', x: 145, y: 100 },
-        { id: 'R', x: 145, y: 90 },
-        { id: 'S', x: 122.5, y: 70 },
-        { id: 'T', x: 122.5, y: 50 },
-        { id: 'U', x: 145, y: 30 },
-        { id: 'V', x: 145, y: 20 },
-        { id: 'W', x: 100, y: 20 },
-        { id: 'L', x: 100, y: 30 },
-        { id: 'I', x: 55, y: 90 },
-        { id: 'J', x: 55, y: 30 },
-        { id: 'M', x: 110, y: 30 },
-        { id: 'N', x: 110, y: 90 },
-        { id: 'Z', x: 82.5, y: 60 },
-        { id: 'Y', x: 10, y: 10 },
-        { id: 'Y1', x: 10, y: 480 },
-        { id: 'Y2', x: 610, y: 10 }
-      ]
+      this.props.state.coordinates = this.defaultCoordinates
       this.props.state.affine = {
         Xx: 1,
         Xy: 0,
@@ -366,103 +163,14 @@ export default class Form extends React.Component {
         Ox: 0,
         Oy: 0
       }
-      this.props.state.length = {
-        AB: 10,
-        BC: 30.1,
-        CD: 20,
-        DE: 30.1,
-        EF: 10,
-        FG: 45,
-        GH: 10,
-        HI: 10,
-        IJ: 60,
-        JK: 10,
-        KX: 10,
-        XA: 45,
-        KL: 35,
-        LM: 10,
-        JM: 55,
-        MN: 60,
-        NO: 10,
-        NI: 55,
-        OH: 35,
-        OP: 10,
-        PQ: 45,
-        QR: 10,
-        RS: 30.1,
-        ST: 20,
-        TU: 30.1,
-        UV: 10,
-        VW: 45,
-        WL: 10,
-        LK: 35
-      }
+      this.props.state.length = this.defaultLength
       this.props.state.setAffine = false
       this.props.state.resetAffine = true
       this.props.updateData(this.props.state, 'resetAffine')
     } else if (id === 'resetProjective') {
       this.setState({
-        length: {
-          AB: 10,
-          BC: 30.1,
-          CD: 20,
-          DE: 30.1,
-          EF: 10,
-          FG: 45,
-          GH: 10,
-          HI: 10,
-          IJ: 60,
-          JK: 10,
-          KX: 10,
-          XA: 45,
-          KL: 35,
-          LM: 10,
-          JM: 55,
-          MN: 60,
-          NO: 10,
-          NI: 55,
-          OH: 35,
-          OP: 10,
-          PQ: 45,
-          QR: 10,
-          RS: 30.1,
-          ST: 20,
-          TU: 30.1,
-          UV: 10,
-          VW: 45,
-          WL: 10,
-          LK: 35
-        },
-        coordinates: [
-          { id: 'A', x: 20, y: 20 },
-          { id: 'X', x: 65, y: 20 },
-          { id: 'K', x: 65, y: 30 },
-          { id: 'B', x: 20, y: 30 },
-          { id: 'C', x: 42.5, y: 50 },
-          { id: 'D', x: 42.5, y: 70 },
-          { id: 'E', x: 20, y: 90 },
-          { id: 'F', x: 20, y: 100 },
-          { id: 'G', x: 65, y: 100 },
-          { id: 'H', x: 65, y: 90 },
-          { id: 'O', x: 100, y: 90 },
-          { id: 'P', x: 100, y: 100 },
-          { id: 'Q', x: 145, y: 100 },
-          { id: 'R', x: 145, y: 90 },
-          { id: 'S', x: 122.5, y: 70 },
-          { id: 'T', x: 122.5, y: 50 },
-          { id: 'U', x: 145, y: 30 },
-          { id: 'V', x: 145, y: 20 },
-          { id: 'W', x: 100, y: 20 },
-          { id: 'L', x: 100, y: 30 },
-          { id: 'I', x: 55, y: 90 },
-          { id: 'J', x: 55, y: 30 },
-          { id: 'M', x: 110, y: 30 },
-          { id: 'N', x: 110, y: 90 },
-          { id: 'Z', x: 82.5, y: 60 },
-          { id: 'Y', x: 10, y: 10 },
-          { id: 'Y1', x: 10, y: 480 },
-          { id: 'Y2', x: 610, y: 10 }
-        ],
+        length: this.defaultLength,
+        coordinates: this.defaultCoordinates,
         projective: {
           Xx: 250,
           Xy: 0,
@@ -477,36 +185,7 @@ export default class Form extends React.Component {
         setProjective: false,
         resetProjective: true
       })
-      this.props.state.coordinates = [
-        { id: 'A', x: 20, y: 20 },
-        { id: 'X', x: 65, y: 20 },
-        { id: 'K', x: 65, y: 30 },
-        { id: 'B', x: 20, y: 30 },
-        { id: 'C', x: 42.5, y: 50 },
-        { id: 'D', x: 42.5, y: 70 },
-        { id: 'E', x: 20, y: 90 },
-        { id: 'F', x: 20, y: 100 },
-        { id: 'G', x: 65, y: 100 },
-        { id: 'H', x: 65, y: 90 },
-        { id: 'O', x: 100, y: 90 },
-        { id: 'P', x: 100, y: 100 },
-        { id: 'Q', x: 145, y: 100 },
-        { id: 'R', x: 145, y: 90 },
-        { id: 'S', x: 122.5, y: 70 },
-        { id: 'T', x: 122.5, y: 50 },
-        { id: 'U', x: 145, y: 30 },
-        { id: 'V', x: 145, y: 20 },
-        { id: 'W', x: 100, y: 20 },
-        { id: 'L', x: 100, y: 30 },
-        { id: 'I', x: 55, y: 90 },
-        { id: 'J', x: 55, y: 30 },
-        { id: 'M', x: 110, y: 30 },
-        { id: 'N', x: 110, y: 90 },
-        { id: 'Z', x: 82.5, y: 60 },
-        { id: 'Y', x: 10, y: 10 },
-        { id: 'Y1', x: 10, y: 480 },
-        { id: 'Y2', x: 610, y: 10 }
-      ]
+      this.props.state.coordinates = this.defaultCoordinates
       this.props.state.projective = {
         Xx: 250,
         Xy: 0,
@@ -518,37 +197,7 @@ export default class Form extends React.Component {
         Oy: 0,
         wO: 500
       }
-      this.props.state.length = {
-        AB: 10,
-        BC: 30.1,
-        CD: 20,
-        DE: 30.1,
-        EF: 10,
-        FG: 45,
-        GH: 10,
-        HI: 10,
-        IJ: 60,
-        JK: 10,
-        KX: 10,
-        XA: 45,
-        KL: 35,
-        LM: 10,
-        JM: 55,
-        MN: 60,
-        NO: 10,
-        NI: 55,
-        OH: 35,
-        OP: 10,
-        PQ: 45,
-        QR: 10,
-        RS: 30.1,
-        ST: 20,
-        TU: 30.1,
-        UV: 10,
-        VW: 45,
-        WL: 10,
-        LK: 35
-      }
+      this.props.state.length = this.defaultLength
       this.props.state.setProjective = false
       this.props.state.resetProjective = true
       this.props.updateData(this.props.state, 'resetProjective')
@@ -963,6 +612,7 @@ export default class Form extends React.Component {
                 value={this.props.state.affine.Xx}
                 onChange={this.handleChange}
                 className="affine"
+                min={1}
               />
             </div>
             <div className="form-input">
@@ -973,6 +623,7 @@ export default class Form extends React.Component {
                 value={this.props.state.affine.Xy}
                 onChange={this.handleChange}
                 className="affine"
+                min={0}
               />
             </div>
             <div className="form-input">
@@ -983,6 +634,7 @@ export default class Form extends React.Component {
                 value={this.props.state.affine.Yx}
                 onChange={this.handleChange}
                 className="affine"
+                min={0}
               />
             </div>
             <div className="form-input">
@@ -993,6 +645,7 @@ export default class Form extends React.Component {
                 value={this.props.state.affine.Yy}
                 onChange={this.handleChange}
                 className="affine"
+                min={1}
               />
             </div>
             <div className="form-input">
@@ -1003,6 +656,7 @@ export default class Form extends React.Component {
                 value={this.props.state.affine.Ox}
                 onChange={this.handleChange}
                 className="affine"
+                min={0}
               />
             </div>
             <div className="form-input">
@@ -1013,6 +667,7 @@ export default class Form extends React.Component {
                 value={this.props.state.affine.Oy}
                 onChange={this.handleChange}
                 className="affine"
+                min={0}
               />
             </div>
             <button
@@ -1050,6 +705,7 @@ export default class Form extends React.Component {
                 value={this.props.state.projective.Xx}
                 onChange={this.handleChange}
                 className="projective"
+                min={0}
               />
             </div>
             <div className="form-input">
@@ -1060,6 +716,7 @@ export default class Form extends React.Component {
                 value={this.props.state.projective.Xy}
                 onChange={this.handleChange}
                 className="projective"
+                min={0}
               />
             </div>
             <div className="form-input">
@@ -1070,6 +727,7 @@ export default class Form extends React.Component {
                 value={this.props.state.projective.wX}
                 onChange={this.handleChange}
                 className="projective"
+                min={0}
               />
             </div>
             <div className="form-input">
@@ -1080,6 +738,7 @@ export default class Form extends React.Component {
                 value={this.props.state.projective.Yx}
                 onChange={this.handleChange}
                 className="projective"
+                min={0}
               />
             </div>
             <div className="form-input">
@@ -1090,6 +749,7 @@ export default class Form extends React.Component {
                 value={this.props.state.projective.Yy}
                 onChange={this.handleChange}
                 className="projective"
+                min={0}
               />
             </div>
             <div className="form-input">
@@ -1100,6 +760,7 @@ export default class Form extends React.Component {
                 value={this.props.state.projective.wY}
                 onChange={this.handleChange}
                 className="projective"
+                min={0}
               />
             </div>
             <div className="form-input">
@@ -1110,6 +771,7 @@ export default class Form extends React.Component {
                 value={this.props.state.projective.Ox}
                 onChange={this.handleChange}
                 className="projective"
+                min={0}
               />
             </div>
             <div className="form-input">
@@ -1120,6 +782,7 @@ export default class Form extends React.Component {
                 value={this.props.state.projective.Oy}
                 onChange={this.handleChange}
                 className="projective"
+                min={0}
               />
             </div>
             <div className="form-input">
@@ -1130,6 +793,7 @@ export default class Form extends React.Component {
                 value={this.props.state.projective.wO}
                 onChange={this.handleChange}
                 className="projective"
+                min={0}
               />
             </div>
             <button
