@@ -5,7 +5,6 @@
   "homepage": "https://rodionchachura.github.io/linear-algebra",
   "dependencies": {
     "gh-pages": "^2.0.1",
-    "linear-algebra": "file:../library",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-konva": "^18.2.3",
@@ -17,7 +16,7 @@
     "transformation-matrix": "^2.14.0"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

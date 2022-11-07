@@ -503,7 +503,6 @@ class Transformation extends React.Component {
         'The number of columns of the first matrix is not equal to the number of rows of the second matrix.'
       )
     }
-
     const columns = transformMatrix[0].map((_, i) =>
       transformMatrix.map(r => r[i])
     )
@@ -530,6 +529,7 @@ class Transformation extends React.Component {
           }
         }
       }
+
       this.res = this.coordinates.map(p => {
         const X = p.x - 10
         const Y = p.y - 10
@@ -537,8 +537,8 @@ class Transformation extends React.Component {
         const point = [X, Y, 1]
 
         this.matrixMultiplication(point, this.transformMatrix)
-
-        return { id: p.id, x: this.newPos[0] + 10, y: this.newPos[1] + 10 }
+        
+        return { id: p.id, x: (this.props.state.setProjective) ? (this.newPos[0] / 100) + 10 : this.newPos[0] + 10, y: (this.props.state.setProjective) ? (this.newPos[1] / 100) + 10 : this.newPos[1] + 10 }
       })
       this.props.state.coordinates = this.res
       if (this.setAxis === false) {
@@ -549,7 +549,7 @@ class Transformation extends React.Component {
         )
       }
     }
-
+  
     return (
       <Container>
         <Grid state={this.props.state} />

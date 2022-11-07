@@ -95,15 +95,15 @@ class Main extends React.Component {
       setAffine: false,
       resetAffine: false,
       projective: {
-        Xx: 250,
+        Xx: 100,
         Xy: 0,
         wX: 1,
         Yx: 0,
-        Yy: 250,
-        wY: 1,
+        Yy: 100,
+        wY: 3,
         Ox: 0,
         Oy: 0,
-        wO: 500
+        wO: 300
       },
       setProjective: false,
       resetProjective: false

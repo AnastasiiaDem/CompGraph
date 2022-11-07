@@ -89,11 +89,11 @@ export default class Form extends React.Component {
       setAffine: false,
       resetAffine: false,
       projective: {
-        Xx: 250,
+        Xx: 600,
         Xy: 0,
         wX: 1,
         Yx: 0,
-        Yy: 250,
+        Yy: 400,
         wY: 1,
         Ox: 0,
         Oy: 0,
@@ -172,11 +172,11 @@ export default class Form extends React.Component {
         length: this.defaultLength,
         coordinates: this.defaultCoordinates,
         projective: {
-          Xx: 250,
+          Xx: 600,
           Xy: 0,
           wX: 1,
           Yx: 0,
-          Yy: 250,
+          Yy: 400,
           wY: 1,
           Ox: 0,
           Oy: 0,
@@ -187,11 +187,11 @@ export default class Form extends React.Component {
       })
       this.props.state.coordinates = this.defaultCoordinates
       this.props.state.projective = {
-        Xx: 250,
+        Xx: 600,
         Xy: 0,
         wX: 1,
         Yx: 0,
-        Yy: 250,
+        Yy: 400,
         wY: 1,
         Ox: 0,
         Oy: 0,
