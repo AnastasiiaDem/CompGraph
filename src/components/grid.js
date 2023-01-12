@@ -87,15 +87,15 @@ class Grid extends React.Component {
     let canvas = document.getElementById('canvas')
     if (canvas.getContext) {
       let ctx = canvas.getContext('2d')
-      canvas.width = this.props.state.setProjective ? 1000 : 610;
-      canvas.height = this.props.state.setProjective ? 1000 : 480;
-  
       ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      if (this.didMount === false || this.props.state.setProjective || this.props.state.resetProjective) {
   
-      if (this.didMount === false || canvas.height !== 480) {
+        canvas.width = this.props.state.setProjective ? 1000 : 610;
+        canvas.height = this.props.state.setProjective ? 1000 : 480;
+  
         ctx.transform(1, 0, 0, -1, 0, canvas.height)
       }
-      
       
       let i = 1
       let j = 0
@@ -145,9 +145,9 @@ class Grid extends React.Component {
         i = 1
         j = 0
         // vertical
-        for (let x = this.props.state.projective.Ox; x < this.props.state.coordinates.find(p => p.id === 'Y2').x - 10; x += this.props.state.step * (this.props.state.projective.Xx * this.props.state.projective.wX) / 100) {
+        for (let x = this.props.state.projective.Ox; x < this.props.state.coordinates.find(p => p.id === 'Y2').x; x += this.props.state.step * this.props.state.projective.wX) {
           ctx.beginPath()
-          ctx.moveTo(x + 10, 10 + this.props.state.projective.Oy)
+          ctx.moveTo(x + 10, 10 + ((x === this.props.state.projective.Ox) ? this.props.state.projective.Oy : (j * 10) + this.props.state.projective.Oy))
           if (x === this.props.state.projective.Ox) {
             ctx.lineTo(this.props.state.coordinates.find(p => p.id === 'Y1').x, this.props.state.coordinates.find(p => p.id === 'Y1').y)
           } else {
@@ -164,15 +164,15 @@ class Grid extends React.Component {
             ctx.stroke()
           }
           i++
-          j++;
+          j = j + this.props.state.projective.Xy;
         }
         
         i = 1
         j = 0
         // horizontal
-        for (let y = this.props.state.projective.Oy; y < this.props.state.coordinates.find(p => p.id === 'Y1').y - 10; y += this.props.state.step * (this.props.state.projective.Yy * this.props.state.projective.wY) / 100) {
+        for (let y = this.props.state.projective.Oy; y < this.props.state.coordinates.find(p => p.id === 'Y1').y; y += this.props.state.step * this.props.state.projective.wY) {
           ctx.beginPath()
-          ctx.moveTo(10 + this.props.state.projective.Ox, 10 + y)
+          ctx.moveTo(10 + ((y === this.props.state.projective.Oy) ? this.props.state.projective.Ox : (j * 10) + this.props.state.projective.Ox), 10 + y)
           if (y === this.props.state.projective.Oy) {
             ctx.lineTo(this.props.state.coordinates.find(p => p.id === 'Y2').x, this.props.state.coordinates.find(p => p.id === 'Y2').y)
           } else {
@@ -188,7 +188,7 @@ class Grid extends React.Component {
             ctx.stroke()
           }
           i++
-          j++
+          j = j + this.props.state.affine.Yx;
         }
       } else {
         i = 1;
@@ -506,7 +506,7 @@ class Grid extends React.Component {
       }
       this.props.state.resetEuclid = false
       this.props.state.resetAffine = false
-      this.props.state.resetProjective = false
+      // this.props.state.resetProjective = false
     }
   
     if (this.update) {
@@ -732,7 +732,7 @@ class Grid extends React.Component {
     this.deg = Number(this.props.state.deg)
     this.dotX = Number(this.props.state.dotX)
     this.dotY = Number(this.props.state.dotY)
-    
+    debugger
     this.setPoints()
     
     const scale = `scale(${this.props.state.step / 10})`
@@ -744,9 +744,12 @@ class Grid extends React.Component {
     if (this.didMount) {
       this.draw()
     }
+  
+    this.props.state.resetProjective = false
     
     return (
-      <Container style={{overflow: this.props.state.setProjective ? 'scroll' : 'none'}} className='projection'>
+      <Container style={{overflow: this.props.state.setProjective ? 'scroll' : 'hidden'}} className='projection'>
+      {/*<Container>*/}
         <canvas id="canvas" width='610' height='480'/>
       </Container>
     )

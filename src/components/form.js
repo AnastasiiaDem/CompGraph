@@ -197,6 +197,7 @@ export default class Form extends React.Component {
         Oy: 0,
         wO: 500
       }
+      debugger
       this.props.state.length = this.defaultLength
       this.props.state.setProjective = false
       this.props.state.resetProjective = true
