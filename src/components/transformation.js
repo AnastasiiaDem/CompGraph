@@ -430,7 +430,11 @@ class Transformation extends React.Component {
   setScaleMatrix() {
     const S = this.props.state.step / 10
 
-    return [[S, 0, 0], [0, S, 0], [0, 0, 1]]
+    return [
+      [S, 0, 0],
+      [0, S, 0],
+      [0, 0, 1]
+    ]
   }
 
   setRotationMatrix() {
@@ -441,11 +445,7 @@ class Transformation extends React.Component {
     return [
       [Math.cos(angle), Math.sin(angle), 0],
       [-1 * Math.sin(angle), Math.cos(angle), 0],
-      [
-        -1 * dotX * (Math.cos(angle) - 1) + dotY * Math.sin(angle),
-        -1 * dotX * Math.sin(angle) - dotY * (Math.cos(angle) - 1),
-        1
-      ]
+      [-1 * dotX * (Math.cos(angle) - 1) + dotY * Math.sin(angle), -1 * dotX * Math.sin(angle) - dotY * (Math.cos(angle) - 1), 1]
     ]
   }
 
@@ -476,7 +476,11 @@ class Transformation extends React.Component {
     const Ox = this.props.state.affine.Ox
     const Oy = this.props.state.affine.Oy
 
-    return [[Xx, Xy, 0], [Yx, Yy, 0], [Ox, Oy, 1]]
+    return [
+      [Xx, Xy, 0],
+      [Yx, Yy, 0],
+      [Ox, Oy, 1]
+    ]
   }
 
   setProjectiveMatrix() {
@@ -538,7 +542,7 @@ class Transformation extends React.Component {
 
         this.matrixMultiplication(point, this.transformMatrix)
         
-        return { id: p.id, x: (this.props.state.setProjective) ? (this.newPos[0] / 100) + 10 : this.newPos[0] + 10, y: (this.props.state.setProjective) ? (this.newPos[1] / 100) + 10 : this.newPos[1] + 10 }
+        return { id: p.id, x: (this.props.state.setProjective) ? (this.newPos[0] / this.newPos[2]) + 10 : this.newPos[0] + 10, y: (this.props.state.setProjective) ? (this.newPos[1] / this.newPos[2]) + 10 : this.newPos[1] + 10 }
       })
       this.props.state.coordinates = this.res
       if (this.setAxis === false) {
@@ -549,7 +553,7 @@ class Transformation extends React.Component {
         )
       }
     }
-  
+  console.log(this.props.state.coordinates)
     return (
       <Container>
         <Grid state={this.props.state} />
