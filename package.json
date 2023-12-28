@@ -4,16 +4,16 @@
   "private": true,
   "homepage": "https://rodionchachura.github.io/linear-algebra",
   "dependencies": {
-    "gh-pages": "^2.0.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-konva": "^18.2.3",
-    "react-scripts": "3.0.0",
-    "react-sizeme": "^2.6.12",
-    "styled-components": "^4.4.1",
-    "three": "^0.104.0",
-    "three-orbitcontrols": "^2.102.1",
-    "transformation-matrix": "^2.14.0"
+    "gh-pages": "^6.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-konva": "^18.2.10",
+    "styled-components": "^6.1.6",
+    "react-scripts": "^5.0.1",
+    "react-sizeme": "^3.0.2",
+    "three": "^0.160.0",
+    "three-orbitcontrols": "^2.110.3",
+    "transformation-matrix": "^2.15.0"
   },
   "scripts": {
     "start": "react-scripts start",
